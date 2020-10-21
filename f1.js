@@ -20,6 +20,7 @@ export const f1manager = {
         return years;
     },
     getrounds: async (year) => {
+        
         let rounds = await f1manager.getraces(year, 1).then((res) => {
             let totalrounds = res.total;
             return totalrounds;
