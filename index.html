@@ -34,8 +34,8 @@
          
             <div class="col-lg-6" style="display: flex;">
                 <label for="">Name:</label>
-                <input type="text" class="form-control">
-                <button class="btn">Search</button>
+                <input type="text" id="searchtext" class="form-control">
+                <button class="btn" id="searchbtn">Search</button>
             </div>
      
         </div>
@@ -56,12 +56,12 @@
             <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">Position</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Nationality</th>
-                    <th scope="col">Fastest Time</th>
-                    <th scope="col">Fastest Speed</th>
-                    <th scope="col">Team Url</th>
+                    <th scope="col" value="position">Position</th>
+                    <th scope="col" value="Driver.givenName">Name</th>
+                    <th scope="col" value="Constructor.nationality">Nationality</th>
+                    <th scope="col" value="FastestLap.Time.time">Fastest Time</th>
+                    <th scope="col" value="FastestLap.AverageSpeed.speed">Fastest Speed</th>
+                    <th scope="col" value="Constructor.url">Team Url</th>
 
                   </tr>
                 </thead>
@@ -79,4 +79,14 @@
 </html>
 <script>
     
+
+fetch("https://ergast.com/api/f1/drivers")
+.then((res)=> res.json())
+.then((data)=>{
+    console.log(data);
+})
+.catch((msg)=>{
+    console.log(msg);
+})
+
 </script>
