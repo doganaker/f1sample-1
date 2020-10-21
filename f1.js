@@ -1,62 +1,57 @@
-const url = 'https://ergast.com/api/f1/'
-const f1manager = {
 
-     getraces:  (year, round) => {
-        fetch(url + year + '/' + round + '/results.json')
+const url = 'https://ergast.com/api/f1/';
+
+export const f1manager = {
+
+    getraces: async (year, round) => {
+        let result = await fetch(url + year + '/' + round + '/results.json')
             .then((res) => res.json())
-            .then((data) => {
+            .then((data) => data.MRData)
 
-            })
+        return result;
+    },
+    getyears: () => {
+        var d = new Date();
+        var fullyear = d.getFullYear();
+        let years = [];
+        for (let i = 2004; i <= fullyear; i++) {
+            years.push(i);
+        }
+        return years;
+    },
+    getrounds: async (year) => {
+        let rounds = await f1manager.getraces(year, 1).then((res) => {
+            let totalrounds = res.total;
+            return totalrounds;
+        });
+
+        //mesela 20 round var. Bu durumda 20 lik bir dizi oluşturup kullanıcıya veriyorum
+        let returnrounds = [];
+
+        for (let i = 1; i <= rounds; i++) {
+            returnrounds.push(i);
+        }
+
+        return returnrounds;
     }
 
 }
 
 
+// async function getraces2(year, round) {
+//     let result = await fetch(url + year + '/' + round + '/results.json')
+//         .then((res) => res.json())
+//         .then((data) => {
+//             return data;
+//         })
+
+//     return result;
+// }
 
 
-async function getraces2(year, round) {
-
-  var result =  await fetch(url + year + '/' + round + '/results.json')
-        .then((res) => res.json());
-    
-        return result;
-
-
-}
-
-
-getraces2(2008, 1).then((data) => {
-     console.log(data);
+f1manager.getrounds(2008).then((res) => {
+    console.log(res);
 })
 
-//let x = await getraces2(2008,1);
-// console.log(x);
-
-
-
-async function Merhaba() {
-
-    return "Çağatay";
-}
-
-Merhaba()
-    .then((msg) => {
-        //console.log(msg);
-    })
-
-
-
-async function Ornek() {
-    await fetch(url + 2008 + '/' + 1 + '/results.json')
-        .then((res) => res.json())
-        .then((data) => {
-          //  console.log(data);
-        })
-
-   // console.log('Şoko')
-}
-
-
-//console.log('BERK');
 
 
